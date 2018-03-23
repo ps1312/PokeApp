@@ -1,0 +1,8 @@
+<ul>
+    <% regions.forEach(function(region){ %>
+        <li>
+            <%= region.name %>
+            <a href="/catch/<%= region.name %>">pick region</a>
+        </li>
+    <% }) %>
+</ul>

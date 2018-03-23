@@ -44,7 +44,9 @@ app.use(function(req, res, next){
 });
 
 const userRoutes = require("./routes/user");
+const catchRoutes = require("./routes/catch");
 app.use("/", userRoutes)
+app.use("/catch", catchRoutes);
 
 app.get("/", function(req, res){
     res.send("Server working");
