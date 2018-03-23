@@ -7,6 +7,18 @@ const authMiddleware = require("../middleware/authentication");
 const pokedex = require("pokedex-promise-v2");
 const P = new pokedex();
 
+//Show specific pokemon info (route order matters!)
+catchRouter.get("/pokemon/:pokemon_name", authMiddleware.isLoggedIn, function(req, res){
+    var pokemonName = req.params.pokemon_name;
+    P.getPokemonByName(pokemonName)
+    .then(function(response) {
+        res.render("catch/show_pokemon", {pokemonData: response});
+    })
+    .catch(function(error) {
+        console.log('There was an ERROR: ', error);
+    });
+});
+
 //Get all regions for the user
 catchRouter.get("/region", authMiddleware.isLoggedIn, function(req, res){
     P.getRegionsList()
@@ -58,18 +70,6 @@ catchRouter.post("/", authMiddleware.isLoggedIn, function(req, res){
             }
             res.redirect("/dashboard");
         }
-    });
-});
-
-//Show specific pokemon info
-catchRouter.get("/pokemon/:pokemon_name", authMiddleware.isLoggedIn, function(req, res){
-    var pokemonName = req.params.pokemon_name;
-    P.getPokemonByName(pokemonName)
-    .then(function(response) {
-        res.render("catch/show_pokemon", {pokemonData: response});
-    })
-    .catch(function(error) {
-        console.log('There was an ERROR: ', error);
     });
 });
 
