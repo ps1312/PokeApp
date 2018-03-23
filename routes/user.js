@@ -2,6 +2,7 @@ const express = require("express");
 const userRouter = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
+const authMiddleware = require("../middleware/authentication");
 
 //Get register form
 userRouter.get("/register", function(req, res){
@@ -14,7 +15,7 @@ userRouter.get("/login", function(req, res){
 });
 
 //User profile page
-userRouter.get("/dashboard", function(req, res){
+userRouter.get("/dashboard", authMiddleware.isLoggedIn, function(req, res){
     res.render("dashboard");
 });
 
