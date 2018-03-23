@@ -1,1 +1,13 @@
 <%= currentUser %>
+
+<h3> ainda faltam n pokemons </h3>
+<ul>
+    <% currentUser.catchedPokemonsNames.forEach(function(pokemon){ %>
+        <li>
+            <%= pokemon %>
+            <a href="/catch/pokemon/<%= pokemon %>">See more</a>
+        </li>
+    <% }) %>
+</ul>
+
+<a href="/catch/region"> catch more pokemons </a>

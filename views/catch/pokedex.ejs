@@ -1,0 +1,10 @@
+all pokedexes here
+
+<ul>
+    <% pokedexes.forEach(function(pokedex){ %>
+        <li>
+            <%= pokedex.name %>
+            <a href="/catch/<%= region %>/<%=pokedex.name%>">pick pokedex</a>
+        </li>
+    <% }) %>
+</ul>
