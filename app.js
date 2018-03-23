@@ -11,6 +11,9 @@ mongoose.connect(mongooseUrlConnect, function(err){
     }
 });
 
+//Set view engine to ejs
+app.set("view engine", "ejs");
+
 app.get("/", function(req, res){
     res.send("Server working");
 });
