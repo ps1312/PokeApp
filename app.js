@@ -1,7 +1,13 @@
 const express = require("express");
 const app = express();
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user");
+const expressSession = require("express-session");
 const mongoose = require("mongoose");
+const bp = require("body-parser");
 
+//Connecting to mLab (mongoDB web service)
 const mongooseUrlConnect = "mongodb://" + process.env.MLAB_USER + ":" + process.env.MLAB_PASS + "@ds119449.mlab.com:19449/pokemon_db";
 mongoose.connect(mongooseUrlConnect, function(err){
     if (err) {
@@ -11,8 +17,34 @@ mongoose.connect(mongooseUrlConnect, function(err){
     }
 });
 
+//Body parser to read html fields on post
+app.use(bp.urlencoded({extended: true}));
+
 //Set view engine to ejs
 app.set("view engine", "ejs");
+
+//Passport config for login
+app.use(expressSession({
+    secret: "yoursecrethere",
+    resave: true,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+//For easy access of user in ejs
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
+
+const userRoutes = require("./routes/user");
+app.use("/", userRoutes)
 
 app.get("/", function(req, res){
     res.send("Server working");
