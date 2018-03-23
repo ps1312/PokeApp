@@ -1,0 +1,22 @@
+{
+  "name": "teste_mobiclub",
+  "version": "1.0.0",
+  "description": "Pokedex app where a user can login and catch some pokemons",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ps1312/teste_mobiclub.git"
+  },
+  "author": "Paulo Sergio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ps1312/teste_mobiclub/issues"
+  },
+  "homepage": "https://github.com/ps1312/teste_mobiclub#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
