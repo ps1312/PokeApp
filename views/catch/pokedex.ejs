@@ -4,7 +4,7 @@
     <h4>Para escolher uma pokedex, clique no nome.</h4>  
     <% pokedexes.forEach(function(pokedex){ %>
         <li class="list-group-item">
-            <a href="/catch/<%= region %>/<%=pokedex.name%>"><%= pokedex.name %></a>
+            <a href="/catch/<%= game_version %>/<%=pokedex.name%>"><%= pokedex.name %></a>
         </li>
     <% }) %>
 </ul>
