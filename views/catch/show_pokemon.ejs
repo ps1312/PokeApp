@@ -1,37 +1,57 @@
-<h3><%= pokemonData.name %></h3>
-<p>weight: <%= pokemonData.weight %></p>
+<% include ../partials/header.ejs %>
 
-<img src="<%= pokemonData.sprites.front_default %>">
-
-<h3>types</h3>
-<ul>
-    <% pokemonData.types.forEach(function(type){ %>
-        <li>
-            <%= type.type.name %>
-        </li>
-    <% }) %>
-</ul>
-
-<h3>abilities</h3>
-<ul>
-    <% pokemonData.abilities.forEach(function(ability){ %>
-        <li>
-            <%= ability.ability.name %> <br>
-            slot: &nbsp; <%= ability.slot %> <br>
-            is hidden?: &nbsp; <%= ability.is_hidden %> <br>            
-        </li>
-        <br>
-    <% }) %>
-</ul>
-
-<h3>stats</h3>
-<ul>
-    <% pokemonData.stats.forEach(function(stat){ %>
-        <li>
-            <%= stat.stat.name %> <br>
-            effort: &nbsp; <%= stat.effort %> <br>
-            base status: &nbsp; <%= stat.base_stat %> <br>            
-        </li>
-        <br>
-    <% }) %>
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <img class="thumbnail" src="<%= pokemonData.sprites.front_default %>">
+            <h2><%= pokemonData.name %></h2>
+            <h3>Peso: <%= pokemonData.weight %></h3>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Tipos:</div>
+                <div class="panel-body">
+                    <ul>
+                        <% pokemonData.types.forEach(function(type){ %>
+                            <li>
+                                <%= type.type.name %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Habilidades:</div>
+                <div class="panel-body">
+                    <ul>
+                        <% pokemonData.abilities.forEach(function(ability){ %>
+                            <li>
+                                <%= ability.ability.name %> <br>
+                                slot: &nbsp; <%= ability.slot %> <br>
+                                is hidden?: &nbsp; <%= ability.is_hidden %> <br>            
+                            </li>
+                            <br>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Stats:</div>
+                <div class="panel-body">
+                    <ul>
+                        <% pokemonData.stats.forEach(function(stat){ %>
+                            <li>
+                                <%= stat.stat.name %> <br>
+                                effort: &nbsp; <%= stat.effort %> <br>
+                                base status: &nbsp; <%= stat.base_stat %> <br>            
+                            </li>
+                            <br>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,27 @@
-<h3>Catch your pokemon!</h3>
+<% include ../partials/header.ejs %>
 
-<ul>
+<ul class="list-group">
     <% pokemons.forEach(function(pokemon){ %>
-        <li>
-            <p><%= pokemon.pokemon_species.name %></p>
+        <li class="list-group-item">
             <form action="/catch" method="POST">
-                <input type="text" name="pokemon_name" value="<%= pokemon.pokemon_species.name %>">
+                <div class="row">
+                <input type="text" hidden name="pokemon_name" value="<%= pokemon.pokemon_species.name %>">
                 <% if (userPokemonsNames.includes(pokemon.pokemon_species.name)) { %>
-                    <button type="submit" disabled>Captured</button>               
+                    <div class="col-lg-6">
+                        <h4><%= pokemon.pokemon_species.name %></h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-warning" type="submit" disabled>Capturado</button>               
+                    </div>
                 <% } else { %>
-                    <button type="submit">Catch</button>
+                    <div class="col-lg-6">
+                            <h4><%= pokemon.pokemon_species.name %></h4>
+                    </div>
+                    <div class="col-lg-6">
+                            <button class="btn btn-success" type="submit">Capturar</button>              
+                    </div>
                 <% } %>
+                </div>
             </form>
         </li>
     <% }) %>
