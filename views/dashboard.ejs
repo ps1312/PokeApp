@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <p>Email: &nbsp; <%= currentUser.email %></p>
                 <hr>
-                <h3>Para sua pokedex nacional ainda faltam n pokemons!</h3>
+                <h3>Para sua pokedex nacional ainda faltam <%= nationalPokedexCount - currentUser.catchedPokemonsNames.length %> pokemons!</h3>
                 <ul class="list-group">
                     <h4>Para mais informações sobre o pokemon, clique em seu nome.</h4>
                     <a class="btn btn-default" href="/catch/game_version"> Capturar mais pokemons </a>                    
