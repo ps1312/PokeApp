@@ -1,0 +1,10 @@
+<% include ../partials/header.ejs %>
+
+<ul class="list-group">
+<h4>Para escolher uma versão do game, clique no nome (algumas versões possuem mais de uma ou nenhuma pokedex associada)</h4>  
+    <% game_versions.forEach(function(game_version){ %>
+        <li class="list-group-item">
+            <a href="/catch/<%= game_version.name %>"><%=game_version.name%></a>
+        </li>
+    <% }) %>
+</ul>

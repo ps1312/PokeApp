@@ -6,6 +6,16 @@
             <img class="thumbnail" src="<%= pokemonData.sprites.front_default %>">
             <h2><%= pokemonData.name %></h2>
             <h3>Peso: <%= pokemonData.weight %></h3>
+            <form action="/catch" method="POST">
+                <div class="row">
+                <input type="text" hidden name="pokemon_name" value="<%= pokemonData.name %>">
+                <% if (currentUser.catchedPokemonsNames.includes(pokemonData.name)) { %>
+                    <button class="btn btn-warning" type="submit" disabled>Capturado</button>
+                <% } else { %>
+                        <button class="btn btn-success" type="submit">Capturar</button>
+                <% } %>
+                </div>
+            </form>
         </div>
         <div class="col-lg-4">
             <div class="panel panel-default">

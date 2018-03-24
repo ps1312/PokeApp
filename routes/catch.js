@@ -21,11 +21,11 @@ catchRouter.get("/pokemon/:pokemon_name", authMiddleware.isLoggedIn, function(re
     });
 });
 
-//Get all regions for the user
-catchRouter.get("/region", authMiddleware.isLoggedIn, function(req, res){
-    P.getRegionsList()
+//Get all game_version for the user
+catchRouter.get("/game_version", authMiddleware.isLoggedIn, function(req, res){
+    P.getVersionGroupsList()
     .then(function(response){
-        res.render("catch/region", {regions: response.results});
+        res.render("catch/game_version", {game_versions: response.results});
     })
     .catch(function(err){
         if (err) {
@@ -36,11 +36,11 @@ catchRouter.get("/region", authMiddleware.isLoggedIn, function(req, res){
     })
 });
 
-//Get pokedexes associated with a specific region
-catchRouter.get("/:region_name", authMiddleware.isLoggedIn, function(req, res){
-    P.getRegionByName (req.params.region_name)
+//Get pokedexes associated with a specific game_version
+catchRouter.get("/:game_version", authMiddleware.isLoggedIn, function(req, res){
+    P.getVersionGroupByName  (req.params.game_version)
     .then(function(response) {
-        res.render("catch/pokedex", {pokedexes: response.pokedexes, region: req.params.region_name});
+        res.render("catch/pokedex", {pokedexes: response.pokedexes, game_version: req.params.game_version});
     })
     .catch(function(error) {
         console.log('There was an ERROR: ', error);
@@ -50,7 +50,7 @@ catchRouter.get("/:region_name", authMiddleware.isLoggedIn, function(req, res){
 });
 
 //Get all pokemons associated with a specific pokedex and filter if user had already captured it
-catchRouter.get("/:region_name/:pokedex_name", authMiddleware.isLoggedIn, function(req, res){
+catchRouter.get("/:game_version/:pokedex_name", authMiddleware.isLoggedIn, function(req, res){
     P.getPokedexByName(req.params.pokedex_name)
     .then(function(response) {
         res.render("catch/pokemons", {pokemons: response.pokemon_entries, userPokemonsNames: req.user.catchedPokemonsNames});
@@ -62,7 +62,7 @@ catchRouter.get("/:region_name/:pokedex_name", authMiddleware.isLoggedIn, functi
     });
 });
 
-//Catch pokemon (insert)
+//Catch pokemon (insert on db)
 catchRouter.post("/", authMiddleware.isLoggedIn, function(req, res){
     User.findById(req.user._id, function(err, foundUser){
         if (err) {

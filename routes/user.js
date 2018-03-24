@@ -4,6 +4,10 @@ const passport = require("passport");
 const User = require("../models/user");
 const authMiddleware = require("../middleware/authentication");
 
+//Package to request to pokemon api (auto-caching)
+const pokedex = require("pokedex-promise-v2");
+const P = new pokedex();
+
 //Config for multerS3 (send uploaded picture to S3Bucket)
 const aws = require("aws-sdk");
 const multer = require("multer");
@@ -34,8 +38,16 @@ userRouter.get("/login", function(req, res){
 
 //User profile page
 userRouter.get("/dashboard", authMiddleware.isLoggedIn, function(req, res){
-    s3Bucket.getSignedUrl('getObject', {Bucket: process.env.BUCKET_NAME, Key: req.user.profileImgKey}, function(err, url){
-        res.render("dashboard", {photoUrl: url});
+    P.getPokemonsList()
+    .then(function(response) {
+        s3Bucket.getSignedUrl('getObject', {Bucket: process.env.BUCKET_NAME, Key: req.user.profileImgKey}, function(err, url){
+            res.render("dashboard", {photoUrl: url, nationalPokedexCount: response.count});
+        });
+    })
+    .catch(function(error) {
+        console.log('There was an ERROR: ', error);
+        req.flash("error", "O servidor da PokeApi demorou muito para responder");
+        res.redirect("/dashboard");
     });
 });
 

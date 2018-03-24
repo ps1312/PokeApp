@@ -1,5 +1,6 @@
 <% include ../partials/header.ejs %>
 
+<h3>Você pode clicar no nome do pokemon para saber mais informações.</h3>
 <ul class="list-group">
     <% pokemons.forEach(function(pokemon){ %>
         <li class="list-group-item">
@@ -8,14 +9,14 @@
                 <input type="text" hidden name="pokemon_name" value="<%= pokemon.pokemon_species.name %>">
                 <% if (userPokemonsNames.includes(pokemon.pokemon_species.name)) { %>
                     <div class="col-lg-6">
-                        <h4><%= pokemon.pokemon_species.name %></h4>
+                        <a href="/catch/pokemon/<%= pokemon.pokemon_species.name %>"><%= pokemon.pokemon_species.name %></a>
                     </div>
                     <div class="col-lg-6">
                         <button class="btn btn-warning" type="submit" disabled>Capturado</button>               
                     </div>
                 <% } else { %>
                     <div class="col-lg-6">
-                            <h4><%= pokemon.pokemon_species.name %></h4>
+                        <a href="/catch/pokemon/<%= pokemon.pokemon_species.name %>"><%= pokemon.pokemon_species.name %></a>
                     </div>
                     <div class="col-lg-6">
                             <button class="btn btn-success" type="submit">Capturar</button>              
