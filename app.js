@@ -6,6 +6,7 @@ const User = require("./models/user");
 const expressSession = require("express-session");
 const mongoose = require("mongoose");
 const bp = require("body-parser");
+const flash = require("connect-flash");
 
 //Connecting to mLab (mongoDB web service)
 const mongooseUrlConnect = "mongodb://" + process.env.MLAB_USER + ":" + process.env.MLAB_PASS + "@ds119449.mlab.com:19449/pokemon_db";
@@ -36,10 +37,14 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Config app to use connect-flash
+app.use(flash());
 
-//For easy access of user in ejs
+//For easy access of user and flash messages in ejs
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");    
     next();
 });
 
@@ -49,7 +54,7 @@ app.use("/", userRoutes)
 app.use("/catch", catchRoutes);
 
 app.get("/", function(req, res){
-    res.send("Server working");
+    res.render("home");
 });
 
 const port = "8000";
