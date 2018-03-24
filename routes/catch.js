@@ -16,6 +16,8 @@ catchRouter.get("/pokemon/:pokemon_name", authMiddleware.isLoggedIn, function(re
     })
     .catch(function(error) {
         console.log('There was an ERROR: ', error);
+        req.flash("error", "O servidor da PokeApi demorou muito para responder");
+        res.redirect("/dashboard");
     });
 });
 
@@ -28,6 +30,8 @@ catchRouter.get("/region", authMiddleware.isLoggedIn, function(req, res){
     .catch(function(err){
         if (err) {
             console.log(err);
+            req.flash("error", "O servidor da PokeApi demorou muito para responder");
+            res.redirect("/dashboard");
         }
     })
 });
@@ -40,6 +44,7 @@ catchRouter.get("/:region_name", authMiddleware.isLoggedIn, function(req, res){
     })
     .catch(function(error) {
         console.log('There was an ERROR: ', error);
+        req.flash("error", "O servidor da PokeApi demorou muito para responder");
         res.redirect("/dashboard");
     });
 });
@@ -52,6 +57,7 @@ catchRouter.get("/:region_name/:pokedex_name", authMiddleware.isLoggedIn, functi
     })
     .catch(function(error) {
         console.log('There was an ERROR: ', error);
+        req.flash("error", "O servidor da PokeApi demorou muito para responder");
         res.redirect("/dashboard");      
     });
 });
@@ -61,6 +67,8 @@ catchRouter.post("/", authMiddleware.isLoggedIn, function(req, res){
     User.findById(req.user._id, function(err, foundUser){
         if (err) {
             console.log("Error inserting pokemon" + err);
+            req.flash("error", err);
+            res.redirect("/dashboard");
         } else {
             var pokemonName = req.body.pokemon_name;    
             if (foundUser.catchedPokemonsNames.indexOf(pokemonName) === -1){

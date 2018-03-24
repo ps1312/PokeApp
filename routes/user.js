@@ -40,12 +40,23 @@ userRouter.get("/dashboard", authMiddleware.isLoggedIn, function(req, res){
 });
 
 //Authenticate login
-userRouter.post("/login",passport.authenticate("local", {
+    userRouter.post("/login", passport.authenticate("local", {
     successRedirect: "/dashboard",
-    failureRedirect: "/login"}));
+    failureRedirect: "/login",
+    failureFlash : true,
+    successFlash : true
+    }), function(req, res){
+    });
 
 //Save user on db and authenticate
 userRouter.post("/register", upload.array("profileImg", 1), function(req, res, next){
+
+    //Error if user don't upload a profile pic
+    if (req.files.length < 1){
+        req.flash("error", "Please, upload a profile image");
+        return res.redirect("/register");
+    }
+
     //upload.array uploads to s3bucket
     let newUser = {
         email: req.body.email,
@@ -56,7 +67,8 @@ userRouter.post("/register", upload.array("profileImg", 1), function(req, res, n
     //Register is a function provided by passport-local-mongoose
     User.register(newUser, req.body.password, function(err, createdUser){
         if (err) {
-            console.log("Error creating user: " + err);
+            console.log("Error creating user: " + err.message);
+            req.flash("error", err.message);
             return res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function(){
@@ -68,6 +80,7 @@ userRouter.post("/register", upload.array("profileImg", 1), function(req, res, n
 //Logout user
 userRouter.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Logged out with success");
     res.redirect("/");
 });
 
