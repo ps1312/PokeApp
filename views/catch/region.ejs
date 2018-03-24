@@ -1,8 +1,10 @@
-<ul>
+<% include ../partials/header.ejs %>
+
+<ul class="list-group">
+<h4>Para escolher uma região, clique no nome.</h4>  
     <% regions.forEach(function(region){ %>
-        <li>
-            <%= region.name %>
-            <a href="/catch/<%= region.name %>">pick region</a>
+        <li class="list-group-item">
+            <a href="/catch/<%= region.name %>"><%=region.name%></a>
         </li>
     <% }) %>
 </ul>

@@ -1,14 +1,29 @@
-<%= currentUser %>
+<% include ./partials/header.ejs %>
 
-<h3> ainda faltam n pokemons </h3>
-<img src="<%= photoUrl %>">
-<ul>
-    <% currentUser.catchedPokemonsNames.forEach(function(pokemon){ %>
-        <li>
-            <%= pokemon %>
-            <a href="/catch/pokemon/<%= pokemon %>">See more</a>
-        </li>
-    <% }) %>
-</ul>
-
-<a href="/catch/region"> catch more pokemons </a>
+<div class="row">
+    <div class="col-lg-4">
+        <img class="thumbnail responsive" src="<%= photoUrl %>">
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"> Treinador: &nbsp; <%= currentUser.username %></div>
+            <div class="panel-body">
+                <p>Email: &nbsp; <%= currentUser.email %></p>
+                <hr>
+                <h3>Para sua pokedex nacional ainda faltam n pokemons!</h3>
+                <ul class="list-group">
+                    <h4>Para mais informações sobre o pokemon, clique em seu nome.</h4>
+                    <a class="btn btn-default" href="/catch/region"> Capturar mais pokemons </a>                    
+                    <h3 class="list-group-item active">
+                        Pokemons capturados
+                    </h3>
+                    <% currentUser.catchedPokemonsNames.forEach(function(pokemon){ %>
+                        <li class="list-group-item">
+                            <a href="/catch/pokemon/<%= pokemon %>"><%= pokemon %></a>
+                        </li>
+                    <% }) %>
+                </ul>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Role camp</title>
+    <link rel="stylesheet" href="https://bootswatch.com/3/sandstone/bootstrap.min.css">
+  </head>
+  
+  <body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                  <% if (!currentUser) { %>                   
+                    <a class="navbar-brand" href="/">PokeApp</a>
+                  <% } else { %>
+                    <a class="navbar-brand" href="/dashboard">PokeApp</a>                    
+                  <% } %>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                  <% if (!currentUser) { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>                    
+                  <% } else { %>
+                    <li><a href="/dashboard">hello, <%= currentUser.username %></a></li>
+                    <li><a href="/logout">Logout</a></li>                    
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    <div class="container">
+      <% if (error && error.length > 0) { %>
+        <h3 class="alert alert-danger"><%= error %></h3>
+      <% } %>
+      
+      <% if (success && success.length > 0) { %>
+        <h3 class="alert alert-success"><%= success %></h3>
+      <% } %>
+    </div>
