@@ -89,6 +89,22 @@ userRouter.post("/register", upload.array("profileImg", 1), function(req, res, n
     });
 });
 
+//Update profile picture (deleting existing image in amazon s3 and upload a new one)
+userRouter.post("/edit_picture", authMiddleware.isLoggedIn, upload.array("profileImg", 1), function(req, res){
+    s3Bucket.deleteObject({Bucket: process.env.BUCKET_NAME, Key: req.user.profileImgKey}, function(err, data){
+        if (err) {
+            console.log("Error deleting photo from s3: " + err);
+            req.flash("error", err);
+            return res.redirect("/dashboard");
+        } else {
+            //After deleting object, save new key on user
+            req.user.profileImgKey = req.files[0].key;
+            req.user.save();
+            res.redirect("/dashboard");
+        }
+    });
+});
+
 //Logout user
 userRouter.get("/logout", function(req, res){
     req.logout();
