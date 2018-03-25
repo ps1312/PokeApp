@@ -26,7 +26,7 @@ app.set("view engine", "ejs");
 
 //Passport config for login
 app.use(expressSession({
-    secret: "yoursecrethere",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false
 }));
