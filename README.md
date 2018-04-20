@@ -6,8 +6,7 @@ PokeApp consiste numa aplicação feita em NodeJS que simula a funcionalidade de
 # Setup
 Para utilizar esse repositório, após o clone, execute **npm install** para instalar todos os packages necessários. Como banco de dados é utilizado o MongoDB através do serviço MLab, a aplicação está online em um servidor do serviço EC2 da Amazon e um bucket do S3 também da Amazon é usado para guardar as fotos de perfil dos usuários. É também necessário atribuir algumas variáveis de ambiente:
 ```
-export MLAB_USER="mlab user"
-export MLAB_PASS="mlab password"
+export MONGODB_URL=url do bando de dados MongoDB
 export SESSION_SECRET=qualquer string
 export BUCKET_NAME=nome do bucket do S3 usado
 export RECOVER_EMAIL=email para utilizar o reset da senha
