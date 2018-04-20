@@ -9,7 +9,7 @@ const bp = require("body-parser");
 const flash = require("connect-flash");
 
 //Connecting to mLab (mongoDB web service)
-const mongooseUrlConnect = "mongodb://" + process.env.MLAB_USER + ":" + process.env.MLAB_PASS + "@ds119449.mlab.com:19449/pokemon_db";
+const mongooseUrlConnect = process.env.MONGODB_URL;
 mongoose.connect(mongooseUrlConnect, function(err){
     if (err) {
         console.log("Error connecting to database: " + err);
