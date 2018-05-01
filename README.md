@@ -14,4 +14,4 @@ export RECOVER_PASS =senha do email utilizado acima
 ```
 Além das variáveis de ambiente, um arquivo config.json é necessário para utilizar os serviços da Amazon, nesse arquivo é onde estão as chaves de acesso da conta para os arquivos. Essas chaves de acesso são secretas e únicas para cada cliente da Amazon.
 
-Comece a usar: [PokeApp](http://ec2-54-167-214-209.compute-1.amazonaws.com)
+Comece a usar: [PokeApp](http://ec2-52-55-86-96.compute-1.amazonaws.com)
